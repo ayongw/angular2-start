@@ -4,9 +4,17 @@ import {Component} from '@angular/core';
   selector: 'my-app',
   template: `
     <h1>{{title}}</h1>
+    <div *ngIf="selectedHero">
+      <h2>{{selectedHero.name}} Details</h2>
+      <div><label>id:</label>{{selectedHero.id}}</div>
+      <div>
+        <label>name:</label>
+        <input [(ngModel)]="selectedHero.name" placeholder="name"/>
+      </div>
+    </div>
     <h2>My heroes</h2>
     <ul class="heroes">
-      <li *ngFor="let hero of heroes">
+      <li *ngFor="let hero of heroes" (click)="onSelect(hero)">
         <span class="badge">{{hero.id}}</span>{{hero.name}}
       </li>
     </ul>
@@ -64,12 +72,17 @@ import {Component} from '@angular/core';
 export class AppComponent {
   title = "Tour of Heroes";
   //hero = "windstorm";
-  hero:Hero = {
-    id: 1,
-    name: 'Windstorm'
-  };
+  /*  hero:Hero = {
+   id: 1,
+   name: 'Windstorm'
+   };*/
+  selectedHero:Hero;
 
   public heroes = HEROES;
+
+  onSelect = function (hero:Hero) {
+    this.selectedHero = hero;
+  }
 }
 
 /**
