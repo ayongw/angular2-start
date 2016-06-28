@@ -1,5 +1,27 @@
 import {Component} from '@angular/core';
 
+/**
+ * 定义Hero对象
+ */
+export class Hero {
+  id:number;
+  name:string;
+}
+
+const HEROES:Hero[] = [
+  {id: 10, name: 'Mr Nice'},
+  {id: 11, name: 'John Jiang'},
+  {id: 12, name: 'Narco'},
+  {id: 13, name: 'Bombasto'},
+  {id: 14, name: 'Celeritas'},
+  {id: 15, name: 'Magneta'},
+  {id: 16, name: 'RubberMan'},
+  {id: 17, name: 'Dynama'},
+  {id: 18, name: 'Dr IQ'},
+  {id: 19, name: 'Magma'},
+  {id: 20, name: 'Tornado'}
+];
+
 @Component({
   selector: 'my-app',
   template: `
@@ -14,7 +36,7 @@ import {Component} from '@angular/core';
     </div>
     <h2>My heroes</h2>
     <ul class="heroes">
-      <li *ngFor="let hero of heroes" (click)="onSelect(hero)">
+      <li *ngFor="let hero of heroes" (click)="onSelect(hero)" [class.selected]="hero === selectedHero">
         <span class="badge">{{hero.id}}</span>{{hero.name}}
       </li>
     </ul>
@@ -71,39 +93,13 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
   title = "Tour of Heroes";
-  //hero = "windstorm";
-  /*  hero:Hero = {
-   id: 1,
-   name: 'Windstorm'
-   };*/
-  selectedHero:Hero;
+  heroes = HEROES;
 
-  public heroes = HEROES;
+  selectedHero:Hero;
 
   onSelect = function (hero:Hero) {
     this.selectedHero = hero;
   }
 }
 
-/**
- * 定义Hero对象
- */
-export class Hero {
-  id:number;
-  name:string;
-}
-
-const HEROES:Hero[] = [
-  {id: 10, name: 'Mr Nice'},
-  {id: 11, name: 'John Jiang'},
-  {id: 12, name: 'Narco'},
-  {id: 13, name: 'Bombasto'},
-  {id: 14, name: 'Celeritas'},
-  {id: 15, name: 'Magneta'},
-  {id: 16, name: 'RubberMan'},
-  {id: 17, name: 'Dynama'},
-  {id: 18, name: 'Dr IQ'},
-  {id: 19, name: 'Magma'},
-  {id: 20, name: 'Tornado'}
-];
 
