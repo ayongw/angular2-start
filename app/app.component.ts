@@ -66,22 +66,22 @@ import {HeroService} from './hero.service'
   }
   `],
   directives: [HeroDetailComponent],
-  providers : [HeroService]
+  providers: [HeroService]
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   /**
    * 用于注入服务的入口
    */
-  constructor(private heroService:HeroService) {
-    
+  constructor(private heroService: HeroService) {
+
   }
-  
+
   title = "Tour of Heroes";
-  heroes:Hero[];
+  heroes: Hero[];
 
-  selectedHero:Hero;
+  selectedHero: Hero;
 
-  onSelect = function (hero:Hero) {
+  onSelect = function (hero: Hero) {
     this.selectedHero = hero;
   }
   /**
@@ -91,7 +91,8 @@ export class AppComponent implements OnInit{
     this.initHeroList();
   }
   private initHeroList() {
-    this.heroes = this.heroService.getHeros();
+    // this.heroes = this.heroService.getHeros();
+    this.heroService.getHeros().then(heros => this.heroes = heros);
   }
 }
 
