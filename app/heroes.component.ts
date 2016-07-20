@@ -11,18 +11,47 @@ import {HeroService} from './hero.service'
   directives: [HeroDetailComponent]
 })
 export class HeroesComponent implements OnInit {
+  heroes: Hero[];
+
+  selectedHero: Hero;
+
+  addingHero = false;
+
+  error:any;
+
   /**
    * 用于注入服务的入口
    */
-  constructor(private heroService:HeroService) {
-    
+  constructor(private heroService: HeroService) {
+
   }
 
-  heroes:Hero[];
+  addHero() {
+    this.addingHero = true;
+    this.selectedHero = null;
+  }
 
-  selectedHero:Hero;
+  close(savedHero: Hero) {
+    this.addingHero = false;
+    if (savedHero) {
+      this.initHeroList(); // this.getHeroes();
+    }
+  }
 
-  onSelect(hero:Hero) {
+  deleteHero(hero: Hero, event: any) {
+    event.stopPropagation();
+    this.heroService
+      .delete(hero)
+      .then(res => {
+        this.heroes = this.heroes.filter(h => h != hero);
+        if (this.selectedHero === hero) {
+          this.selectedHero = null;
+        }
+      })
+      .catch(error=>this.error=error);
+  }
+
+  onSelect(hero: Hero) {
     this.selectedHero = hero;
   };
 
@@ -34,8 +63,8 @@ export class HeroesComponent implements OnInit {
   }
 
   private initHeroList() {
-    // this.heroes = this.heroService.getHeros();
-    this.heroService.getHeros().then(heros => this.heroes = heros);
+    // this.heroes = this.heroService.getHeroes();
+    this.heroService.getHeroes().then(heros => this.heroes = heros);
   }
 }
 
